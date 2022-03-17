@@ -20,15 +20,18 @@ class Solution{
           {
               for(int j=0;j<n;j++)
               {
-                  for(int j2=j+1;j2<n;j2++)
-                  {    
-                      if(matrix[i][j]==1 && matrix[i][j2]==1)
+                  if(matrix[i][j] == 1){
+                      for(int j2=j+1;j2<n;j2++)
                       {
-                          if(dp.find(j)!=dp.end() && dp[j].find(j2)!=dp[j].end())
+                          if(matrix[i][j2]==1)
+                          {
+                              if(dp.find(j)!=dp.end() && dp[j].find(j2)!=dp[j].end())
                           {
                               return true;
                           }
                           else dp[j].insert(j2);
+                              
+                          }
                       }
                       
                   }

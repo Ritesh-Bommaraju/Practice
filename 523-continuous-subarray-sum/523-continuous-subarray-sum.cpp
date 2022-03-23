@@ -9,7 +9,10 @@ public:
             if (seen.count(r) == 0) {
                 seen.insert({r, i});
             }
-            if (i - seen[r] > 1) return true;
+            if (i - seen[r] > 1) {
+                return true;
+            }
+            // cout << i << seen[r] << endl;
         }
         return false;
         

@@ -2,9 +2,11 @@ class Solution {
 public:
     bool helper(vector<int>& arr, int mid, int operations){
         for(int i = 0; i < arr.size(); i++){
-            operations -= arr[i]/mid;
-            if(arr[i] % mid == 0){
-                operations++;
+            if(arr[i] > mid){
+                operations -= arr[i]/mid;
+                if(arr[i] % mid == 0){
+                    operations++;
+                }
             }
         }
         if(operations >= 0){

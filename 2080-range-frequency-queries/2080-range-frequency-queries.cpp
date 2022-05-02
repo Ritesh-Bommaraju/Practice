@@ -1,33 +1,15 @@
 class RangeFreqQuery {
-// public:
-//     vector<int> ar;
-//     RangeFreqQuery(vector<int>& arr) {
-//         for(int i = 0; i < arr.size(); i++){
-//             ar.push_back(arr[i]);
-//         }
-//     }
-    
-//     int query(int left, int right, int value) {
-//         int count = 0;
-//         for(int i = left; i<=right; i++){
-//             if(ar[i] == value){
-//                 count++;
-//             }
-//         }
-//         return count;
-//     }
-private:
-    unordered_map< int, vector<int> > mp;
+    unordered_map<int, vector<int>> m; // map from a value to all its indices
 public:
-    RangeFreqQuery(vector<int>& arr) {
-        for (int i=0; i<arr.size();i++){
-            mp[arr[i]].push_back(i);
-        }
+    RangeFreqQuery(vector<int>& A) {
+        for (int i = 0; i < A.size(); ++i) m[A[i]].push_back(i);
     }
     int query(int left, int right, int value) {
-        int first = lower_bound(mp[value].begin(),mp[value].end(),left)- mp[value].begin();
-        int second = upper_bound(mp[value].begin(),mp[value].end(),right)- mp[value].begin();
-        return second-first;
+        if (m.count(value) == 0) return 0; // `value` doesn't exist in the original array
+        auto &v = m[value]; // `v` is the array of all the indices of `value` in the original array
+        int j = upper_bound(begin(v), end(v), right) - begin(v); // Find the first index `j` that `v[j] > right`.
+        int i = lower_bound(begin(v), end(v), left) - begin(v); // Find the first index `i` that `v[i] >= left`.
+        return j - i; // The answer is `j - i`
     }
 };
 

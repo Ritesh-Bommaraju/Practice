@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int n;
+    int helper(vector<int>&nums,int curr, vector<int>& dp){
+        if(curr >= nums.size()){
+            return 0;
+        }
+        if(dp[curr] != -1){
+            return dp[curr];
+        }
+        // max(rec(nums, idx+1, dp), nums[idx] + rec(nums, idx+2, dp));
+        return dp[curr] = max( (nums[curr] + helper(nums, curr + 2, dp)) ,helper(nums, curr+1,dp));
+        
+    }
+    
+    int rob(vector<int>& nums) {
+        n = nums.size();
+        vector<int> dp(n+1,-1);
+        return helper(nums,0,dp);
+    }
+};

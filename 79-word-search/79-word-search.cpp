@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool helper(vector<vector<char>>& board, string word, int curr_char_index, int i, int j){
+    bool helper(vector<vector<char>>& board, string& word, int curr_char_index, int i, int j){
         if (i < 0 || i >= board.size() || j < 0 || j >= board[0].size() || word[curr_char_index] != board[i][j]) {
             return false;
         }
@@ -29,8 +29,10 @@ public:
         int n = board[0].size();
         for (int i = 0; i < m; i++){
             for (int j = 0; j < n; j++){
-                if (helper(board, word, 0, i, j)){
-                    return true;
+                if(board[i][j] == word[0]){
+                    if (helper(board, word, 0, i, j)){
+                        return true;
+                    }
                 }
             }
         }

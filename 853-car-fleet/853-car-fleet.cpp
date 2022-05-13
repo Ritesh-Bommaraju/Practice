@@ -19,24 +19,20 @@ public:
 //         }
         
 //         return s.size();
-    int carFleet(int target, vector<int>& position, vector<int>& speed){
-         int n = position.size() , ans = 1;
-        vector<pair<int,double>> cars(n);
-        //positions of cars and the time taken to reach target. 
-        for(int i=0;i<n;i++){
-            cars[i].first = position[i];
-            cars[i].second = (double)(target - position[i])/(double)(speed[i]);
+    int carFleet(int target, vector<int>& pos, vector<int>& speed){
+        if (pos.empty() || speed.empty()) return 0;
+        vector<pair<int, double>> intervals; // start position, time to reach target;
+        for (int i = 0; i < pos.size(); i++){
+            intervals.push_back(make_pair(pos[i], (double)(target - pos[i])/(double)(speed[i])));
         }
-        sort(cars.begin() , cars.end());
-        // for(int i=0;i<n;i++){
-        //     cout<<cars[i].first<<" "<<cars[i].second<<"\n";
-        // }
-        double slowest = cars[n-1].second;        
-
-        for(int i=n-2;i>=0;i--){
-            if(cars[i].second > slowest) {
-                ans++; 
-                slowest = cars[i].second;
+        sort(intervals.begin(), intervals.end());
+        int ans = 1;
+        int n = pos.size();
+        double slowest = intervals[n-1].second;
+        for(int i = n-2; i>=0; i--){
+            if(intervals[i].second > slowest){
+                ans++;
+                slowest = intervals[i].second;
             }
         }
         return ans;

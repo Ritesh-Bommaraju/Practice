@@ -1,6 +1,8 @@
 class Solution {
 public:
     int numSubarrayProductLessThanK(vector<int>& nums, int k) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
         int ans = 0;
         int prod = 1;
         int left = 0;

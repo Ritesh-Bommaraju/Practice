@@ -1,54 +1,50 @@
 class Solution {
 public:
-     string minWindow(string s, string t) {
-        // Initialize minl as INT_MAX
-        int minl = INT_MAX;
+     string minWindow(string large, string small) 
+    {
+        if(small.empty() || large.length()<small.length()) return "";
         
-        // Map to keep count of all characters of t 
-        unordered_map <int, int> mp;
-        for(auto ch: t) mp[ch]++;
+        int cnt = 0, reqt = small.length();
+        vector<int> freq(128, 0); 
+        for(char ch : small) ++freq[ch-'A'];
+        int left=0, right=-1;
+        int best_start=left, best_end=right;
+        int min_length = INT_MAX;
         
-        // Sliding Window Approach
-        // Let c be the count of chars of t in a particular window. Initialize as 0
-        // start be the start of the current window
-        // end be the end of current window
-        // minstart be the start for the minimum window found yet.
-        
-        int c = t.size();
-        
-        int start = 0;
-        int minstart = 0;
-        
-        for(int end = 0; end<s.length(); end++)
+        while(right<=int(large.length()))
         {
-            if(mp[s[end]]>0) c--;
-            mp[s[end]]--; 
-            
-            // continue untill c equals length of t or when current window has all characters of t in it
-            if(c==0)
+            //cout << left << "," << right << endl;
+            if(cnt<reqt)
             {
-                // Note that negative values in map indicate the key char is not present in t, but present in s. And hence leading chars in s with negative values are insignificant.
-                
-                while(start<end && mp[s[start]]<0){
-                    mp[s[start]]++;
-                    start++;
-                }
-                
-                if(end-start+1<minl)
+                // move right pointer
+                ++right;
+                if(right==int(large.length())) return large.substr(best_start, best_end-best_start+1);
+                int index = large[right] - 'A';
+                if(freq[index]>0) ++cnt;
+                --freq[index];
+            }
+            else
+            {
+                // move left pointer
+                int index = large[left] - 'A';
+                if(freq[index]==0) --cnt;
+                ++freq[index];
+                ++left;
+            }
+            
+            // chech if a qualified answer is found
+            if(cnt==reqt)
+            {
+                if(right-left+1<min_length)
                 {
-                    minl = end-start+1;
-                    minstart = start;
+                    min_length = right-left+1;
+                    best_start = left;
+                    best_end   = right;
+                    //cout << best_start << ", " << best_end << endl;
                 }
-                
-                // reduce the window size by incrementing start, reducing mp[s[start]] value, and reducing c
-    
-                mp[s[start]]++;
-                start++;
-                c++;
             }
         }
         
-        if(minl==INT_MAX) return "";
-        return s.substr(minstart, minl);
-     }
+        return large.substr(best_start, best_end-best_start+1);
+    }
 };

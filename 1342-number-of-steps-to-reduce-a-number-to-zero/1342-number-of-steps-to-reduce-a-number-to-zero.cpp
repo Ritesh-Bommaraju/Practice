@@ -8,7 +8,7 @@ public:
             return dp[num];
         }
         int op1, op2;
-        op1 = op2 = INT_MAX;
+        op1 = op2 = INT_MAX; 
         if(num % 2 == 0){
             op1 = helper(num/2, dp) + 1;
         }

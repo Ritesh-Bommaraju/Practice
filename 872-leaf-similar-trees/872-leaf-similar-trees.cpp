@@ -11,23 +11,23 @@
  */
 class Solution {
 public:
-    void ls2(TreeNode* root, vector<int> &v){
-        if(!root->left && !root->right){
+    void helper(TreeNode* root, vector<int> &v){
+        if(root == NULL){
+            return;
+        }
+        if(root->left == NULL && root->right == NULL){
             v.push_back(root->val);
         }
-        if(root->right)
-        ls2(root->right, v);
-        if(root->left)
-        ls2(root->left, v);
-        
+        helper(root->left, v);
+        helper(root->right, v);
     }
     
     bool leafSimilar(TreeNode* root1, TreeNode* root2) {
-        vector<int> v1, v2;
-        ls2(root1, v1);
-        ls2(root2, v2);
-        
-        if(v1==v2){
+        vector<int> v1{};
+        vector<int> v2{};
+        helper(root1, v1);
+        helper(root2, v2);
+        if(v1 == v2){
             return true;
         }
         return false;

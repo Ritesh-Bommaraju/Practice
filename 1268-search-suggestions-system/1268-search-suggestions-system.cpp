@@ -3,6 +3,7 @@ public:
     vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
         string curr = "";
         vector<vector<string>> ans;
+        sort(products.begin(), products.end());
         for(auto c : searchWord){
             curr += c;
             set<string> s;

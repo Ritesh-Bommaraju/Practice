@@ -2,7 +2,7 @@ class Solution {
 public:
     bool isValid(string s) {
         stack<char> st;
-        for(char c : s){
+        for(auto c : s){
             if(c == '('|| c == '{' || c == '['){
                 st.push(c);
             }

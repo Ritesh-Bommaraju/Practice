@@ -16,6 +16,7 @@ public:
     }
     
     int findLUSlength(vector<string>& strs) {
+        // sorting by longest length first and ala
         sort(strs.begin(), strs.end(), []
     (const std::string& first, const std::string& second){
         return first.size() > second.size();

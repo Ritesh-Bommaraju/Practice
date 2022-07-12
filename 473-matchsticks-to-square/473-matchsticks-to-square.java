@@ -9,6 +9,7 @@ class Solution {
         
         Arrays.sort(nums);
         
+        
         int side = perimeter / 4;
         return makesquareSub(nums, nums.length - 1, new int[] {side, side, side, side});
     }

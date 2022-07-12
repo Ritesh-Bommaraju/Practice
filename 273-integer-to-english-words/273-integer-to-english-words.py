@@ -1,0 +1,3 @@
+class Solution:
+    def numberToWords(self, num):
+        return ' '.join([w:='One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve Thirteen Fourteen Fifteen Sixteen Seventeen Eighteen Nineteen Twenty Thirty Forty Fifty Sixty Seventy Eighty Ninety'.split(),(t:=lambda n:w[:19][n-1:n] if n<20 else [w[19:][n//10-2]] + t(n%10) if n<100 else [w[:19][n//100-1]] + ['Hundred'] + t(n%100) if n<1000 else t(n//1000)+['Thousand']+t(n%1000) if n<1000**2 else t(n//1000**2)+['Million']+t(n%1000**2) if n<1000**3 else t(n//1000**3)+['Billion']+t(n%1000**3))(num)][1]) or 'Zero'

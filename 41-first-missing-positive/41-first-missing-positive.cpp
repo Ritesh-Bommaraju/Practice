@@ -2,14 +2,6 @@ class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
         int n = nums.size();
-        if(n == 1){
-            if(nums[0] == 1){
-                return 2;
-            }
-            else{
-                return 1;
-            }
-        }
         bool containsone = false;
         
         // for one it is an edge case

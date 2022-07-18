@@ -11,15 +11,13 @@
  */
 class Solution {
 public:
-    int preorder_index = 0;
     unordered_map<int,int> mp;
-
     TreeNode* helper(vector<int>& preorder, vector<int>& inorder, int left, int right, int &preorder_index) {
         if(left > right){
             return NULL;
         }
         int curr = mp[preorder[preorder_index]];
-        TreeNode *root = new TreeNode(inorder[curr]);
+        TreeNode *root = new TreeNode(preorder[preorder_index]);
         preorder_index ++;
         root->left = helper(preorder, inorder, left, curr-1, preorder_index);
         root->right = helper(preorder, inorder, curr+1, right, preorder_index);
@@ -28,7 +26,7 @@ public:
 
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         int n = preorder.size();
-        for (int i=0 ; i<n ; i++){
+        for (int i = 0 ; i < n ; i++){
             mp[inorder[i]] = i;
         }
         int preorder_index = 0;

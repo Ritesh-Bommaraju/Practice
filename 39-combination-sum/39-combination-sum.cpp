@@ -1,26 +1,25 @@
 class Solution {
-public:
-    void helper(int idx, int target,vector<int>& arr, vector<vector<int>>& ans, vector<int>& ds){
-        if(idx == arr.size()){
-            if(target == 0){
-                ans.push_back(ds);
-            }
+    void combination(const vector<int>& candidates, int target, vector<int> &currComb, int currSum, int currIndex, vector<vector<int>>& ans){
+        if(currSum>target) return; //backtrack
+        if(currSum==target){
+            ans.push_back(currComb); //store the solution and backtrack
             return;
         }
-        if(arr[idx] <= target){
-            ds.push_back(arr[idx]);
-            helper(idx, target - arr[idx], arr, ans, ds);
-            ds.pop_back();
-        }
-        helper(idx + 1, target, arr, ans, ds);
-    }
-    
-    
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<int> ds;
-        vector<vector<int>> ans;
-        helper(0,target,candidates,ans,ds);
-        return ans;
         
+        for(int i=currIndex; i<candidates.size(); i++){ //try all possible options for the next level
+            currComb.push_back(candidates[i]); //put 1 option into the combination
+            currSum+=candidates[i];
+            combination(candidates, target, currComb, currSum, i, ans); //try with this combination, whether it gives a solution or not.
+            currComb.pop_back(); //when this option backtrack to here, remove this and go on to the next option.
+            currSum-=candidates[i];
+        }
+        
+    }
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        vector<int> currComb;
+        combination(candidates, target, currComb, 0, 0, ans);
+        return ans;
     }
 };

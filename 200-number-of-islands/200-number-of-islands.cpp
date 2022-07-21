@@ -1,15 +1,12 @@
 class Solution {
 public:
         void DFS(vector<vector<char>>& grid, int i, int j) {
-        // boundary checking
-        if(i < 0 || i >= grid.size() || j < 0 || j >= grid[0].size())
-            return;
-        // return if current position is of water or is already visited
-        if(grid[i][j] == '2' || grid[i][j] == '0')
+        // boundary checking return if current position is of water or is already visited
+        if(i < 0 || i >= grid.size() || j < 0 || j >= grid[0].size() || grid[i][j] == '0')
             return;
         
         // mark the current as visited
-        grid[i][j] = '2';
+        grid[i][j] = '0';
         
         // do DFS in all 4 directions
         DFS(grid, i+1, j);
